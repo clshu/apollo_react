@@ -4,7 +4,7 @@ const SongCreate = () => {
   return (
     <div>
       <form>
-        <lable>Create A New Song</lable>
+        <label>Create A New Song</label>
         <input />
       </form>
     </div>
