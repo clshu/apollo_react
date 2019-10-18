@@ -7,13 +7,7 @@ import DeleteSong from '../queries/deleteSong';
 
 const SongList = () => {
   const { loading, error, data } = useQuery(FetchSongList);
-  const [deleteSong] = useMutation(DeleteSong, {
-    refetchQueries: [
-      {
-        query: FetchSongList
-      }
-    ]
-  });
+  const [deleteSong] = useMutation(DeleteSong);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -25,7 +19,23 @@ const SongList = () => {
           <Link to={`/songs/${id}`}>{title}</Link>
           <i
             className="material-icons"
-            onClick={() => deleteSong({ variables: { id } })}
+            onClick={e =>
+              deleteSong({
+                variables: { id },
+                optimisticResponse: null,
+                update: cache => {
+                  const { songs } = cache.readQuery({
+                    query: FetchSongList
+                  });
+                  // filter out the deleted entry by id
+                  const newSongs = songs.filter(song => song.id !== id);
+                  cache.writeQuery({
+                    query: FetchSongList,
+                    data: { songs: newSongs }
+                  });
+                }
+              })
+            }
           >
             delete
           </i>
