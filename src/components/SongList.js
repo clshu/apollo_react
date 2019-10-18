@@ -1,7 +1,7 @@
 import '../style/style.css';
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import fetchSongList from '../queries/fetchSongList';
+import FetchSongList from '../queries/fetchSongList';
 import { Link } from 'react-router-dom';
 
 const onSongDelete = id => {
@@ -22,7 +22,7 @@ const renderSongs = songs => {
 };
 
 const SongList = () => {
-  const { loading, error, data } = useQuery(fetchSongList);
+  const { loading, error, data } = useQuery(FetchSongList);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
