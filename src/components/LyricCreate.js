@@ -7,11 +7,16 @@ const LyricCreate = props => {
   const [content, setContent] = useState('');
 
   const onSubmit = event => {
+    if (content === '') {
+      event.preventDefault();
+      return false;
+    }
     event.preventDefault();
     addLyricToSong({
       variables: { content, songId: props.songId }
     });
     setContent('');
+    return false;
   };
 
   return (
