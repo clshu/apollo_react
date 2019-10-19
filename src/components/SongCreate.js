@@ -16,6 +16,7 @@ const SongCreate = () => {
       }
     ) {
       const { songs } = cache.readQuery({ query: FetchSongList });
+
       cache.writeQuery({
         query: FetchSongList,
         data: { songs: songs.concat([addSong]) }

@@ -6,6 +6,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 import SongList from './components/SongList';
 import SongCreate from './components/SongCreate';
+import SongDetail from './components/SongDetail';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -36,6 +37,9 @@ const App = () => {
           </Route>
           <Route path="/songs/new">
             <SongCreate />
+          </Route>
+          <Route path="/songs/:id">
+            <SongDetail />
           </Route>
         </Switch>
       </Router>
